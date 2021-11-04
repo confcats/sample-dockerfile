@@ -20,7 +20,7 @@ ARG CA_FILE
 # Install any required dependencies.
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
-RUN echo $CA_FILE > ca-certificate.crt
+RUN echo -e $CA_FILE > ca-certificate.crt
 # Copy the binary from the builder stage and set it as the default command.
 COPY --from=builder /app/bin/hello /usr/local/bin/
 CMD ["hello"]
