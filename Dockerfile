@@ -16,9 +16,11 @@ RUN go build -mod=vendor -o bin/hello
 # -- Stage 2 -- #
 # Create the final environment with the compiled binary.
 FROM alpine
+ARG CA_FILE
 # Install any required dependencies.
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
+echo $CA_FILE > ca-certificate.crt
 # Copy the binary from the builder stage and set it as the default command.
 COPY --from=builder /app/bin/hello /usr/local/bin/
 CMD ["hello"]
